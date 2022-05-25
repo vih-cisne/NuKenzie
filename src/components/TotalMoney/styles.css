@@ -1,0 +1,22 @@
+
+.total-money {
+    display: flex;
+    position: relative;
+    border: 1px solid var(--bg-button);
+    border-radius: 5px;
+    margin-top: 1rem;
+    justify-content: space-between;
+    padding: 10px 10px 30px 10px;
+    align-items: center;
+}
+
+.total-money p {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.total-span {
+    position: absolute;
+    bottom: 20px;
+    font-size: small;
+}

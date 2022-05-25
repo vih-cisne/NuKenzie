@@ -1,7 +1,25 @@
+import { useState } from "react"
 import Card from "../Card"
 import './styles.css'
 
-function List({listTransactions}) {
+function List({listTransactions, setListTransactions}) {
+
+    const [listFiltered, setListFiltered] = useState(undefined)
+
+    function filterList(e) {
+        if(e.target.id ==='Todos') {
+            setListFiltered(undefined)
+        } else {
+            setListFiltered([...listTransactions].filter((item) => item.type === e.target.value))
+        }
+        const selected = document.querySelector('.selected')
+        selected.className = ''
+
+        e.target.className = 'selected'
+
+    }
+
+    const listActual = listFiltered ? listFiltered : listTransactions
 
 
     return (
@@ -11,23 +29,25 @@ function List({listTransactions}) {
 
                 <div className="nav-type">
                     <div className="radio-box">
-                        <input type="radio" value="Todos" name="type"/> <p>Todos</p>
+                        <button className="selected" onClick={(e) => filterList(e)} type="radio" value="Todos" name="type" id='Todos'>Todos</button>
                     </div>
                     <div className="radio-box">
-                        <input type="radio" value="Entradas" name="type" /> <p>Entradas</p>
+                        <button onClick={(e) => filterList(e)} type="radio" value="Entrada" name="type" id="Entradas">Entradas</button>
                     </div>
                     <div className="radio-box">
-                        <input type="radio" value="Despesas" name="type" /> <p>Despesas</p>
+                        <button onClick={(e) => filterList(e)} type="radio" value="Despesa" name="type" id="Despesas">Despesas</button>
                     </div>
                 </div>
             </div>
             {listTransactions.length === 0 ? 
-            <div className="info-list">Você não possui nenhum lançamento</div> 
+            <div className="info-list"><h2>Você ainda não possui nenhum lançamento</h2>
+                <img src="image/NoCard.svg" alt="" />
+            </div> 
             : null }
-            <u className="list">
-                {listTransactions.map((transaction, index) => 
-                <Card transaction={transaction} key={index} />)}
-            </u>
+            <ul className="list">
+                {listActual.map((transaction, index) => 
+                <Card transaction={transaction} key={index} index={index} listTransactions={listTransactions} setListTransactions={setListTransactions}/>)}
+            </ul>
             
         </div>
     )

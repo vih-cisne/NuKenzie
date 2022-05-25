@@ -14,16 +14,16 @@
     padding: 8px 10px 40px 10px;  
     background-color: var(--bg-card); 
     margin-bottom: 10px;
-    width: 60vw;
+    width: 100%;
     border-radius: 4px;
     position: relative;
 }
 
-.entrada {
+.Entrada {
     border-left: 3px solid #03B898;
 }
 
-.saída {
+.Despesa {
     border-left: 3px solid var(--bg-button);
 }
 
@@ -31,6 +31,7 @@
     position: absolute;
     color: var(--text-color);
     bottom: 20px;
+    text-transform: capitalize;
 }
 
 .transation-item > div {

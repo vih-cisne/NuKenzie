@@ -41,3 +41,59 @@ li {
   list-style: none;
   display: flex;
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px 20px 20px;
+  background-color: var(--bg-card);
+  box-shadow: 0px 4px 32px -12px #00000040;
+}
+
+.button-start {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--bg-button);
+  color: var(--text-color);
+}
+
+#body {
+  display: flex;
+  padding: 20px;
+  justify-content: space-around;
+}
+
+#home {
+  background-color: #282c34;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#home h1 {
+  font-size: 3vw;
+}
+
+#home > aside {
+  width: 40%;
+  height: fit-content;
+}
+
+.right img {
+  height: 80vh;
+}
+
+#home > aside > button {
+  padding: 10px 90px;
+  background-color: var(--primary-color);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+}
+
+button:hover {
+  filter: brightness(0.8);
+}

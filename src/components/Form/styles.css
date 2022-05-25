@@ -8,4 +8,62 @@
     box-sizing: border-box;
     border-radius: 5px;
     padding: 30px 20px;
+    gap: 20px;
 }
+
+.form-transaction input, .form-transaction select {
+    background-color: var(--bg-card);
+    color: var(--text-color);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 1px 0;
+}
+
+.form-transaction input:focus, .form-transaction select:focus {
+    border: 1px solid var(--text-color); 
+    box-sizing: border-box; 
+    outline: none;
+    margin: 0;
+}
+
+.select-box, .input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.input-box span {
+    font-size: small;
+    color: var(--text-color);
+    position: absolute;
+    bottom: -18px;
+}
+
+.input-value {
+    position: absolute;
+    top: 60%;
+    right: 8px;
+
+}
+
+.flex-below {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.flex-below > div {
+    width: 50%;
+}
+
+
+.form-transaction button {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 0;
+}
+
