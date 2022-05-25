@@ -1,0 +1,11 @@
+
+
+.form-transaction {
+    border: 1px solid var(--bg-button);
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 30px 20px;
+}
