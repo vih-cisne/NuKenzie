@@ -7,10 +7,12 @@ import TotalMoney from './components/TotalMoney';
 
 function App() {
 
-  const [listTransactions, setListTransactions] = useState([{ description: "Salário recebido", type: "Entrada", value: 2500 },
-  { description: "Conta de luz", type: "Despesa", value: -150 }])
+  const [listTransactions, setListTransactions] = useState([{ description: "Salário recebido", type: "Entrada", value: 2500, category: 'Salário' },
+  { description: "Conta de luz", type: "Despesa", value: -150, category: 'Casa' }])
 
   const [start, setStart] = useState(true)
+
+  const [dataGraph, setDataGraph] = useState({})
 
 
   if(start) {
@@ -43,12 +45,12 @@ function App() {
         </header>
         <div id='body'>
           <aside>
-            <Form listTransactions={listTransactions} setListTransactions={setListTransactions}/>
-            <TotalMoney listTransactions={listTransactions} />
+            <Form dataGraph={dataGraph} setDataGraph={setDataGraph} listTransactions={listTransactions} setListTransactions={setListTransactions}/>
+            <TotalMoney dataGraph={dataGraph} listTransactions={listTransactions} />
           </aside>
 
           <main>
-            <List listTransactions={listTransactions} setListTransactions={setListTransactions}/>
+            <List dataGraph={dataGraph} setDataGraph={setDataGraph} listTransactions={listTransactions} setListTransactions={setListTransactions}/>
 
           </main>
 

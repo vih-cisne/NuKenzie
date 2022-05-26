@@ -2,19 +2,24 @@ import { useState } from 'react'
 import './styles.css'
 
 
-function Form({listTransactions,setListTransactions}) {
-
-    /*{ description: "Salário recebido", type: "entrada", value: 2500 },
-  { description: "Conta de luz", type: "saída", value: -150 }*/
+function Form({listTransactions,setListTransactions, dataGraph, setDataGraph}) {
 
     function addTransaction() {
       
-        setListTransactions([...listTransactions, {description,value,type}])
+        setListTransactions([...listTransactions, {description,value,type,category}])
     }
 
     const [description, setDescription] = useState('')
     const [type, setType] = useState('')
     const [value, setValue] = useState('')
+    const [category, setCategory] = useState('')
+    
+
+
+    function addCategory(value) {
+        setCategory(value)
+        
+    }
 
     return (
         <form className="form-transaction">
@@ -34,6 +39,30 @@ function Form({listTransactions,setListTransactions}) {
                     <select onChange={(e) => setType(e.target.value)}>
                         <option>Entrada</option>
                         <option>Despesa</option>
+                    </select>
+                </div>
+                <div className="select-box">
+                    <label>Categoria</label>
+                    <select onChange={(e) => addCategory(e.target.value)}>
+                        
+                        {type === 'Despesa' ? 
+                            <>
+                                <option>Comida</option>
+                                <option>Saúde</option>
+                                <option>Roupa</option>
+                                <option>Pets</option>
+                                <option>Beleza</option>
+                                <option>Casa</option>
+                            </>
+                            :
+                            <>
+                                <option>Salário</option>
+                                <option>Retorno</option>
+
+                            </>
+                    
+                        }
+                        
                     </select>
                 </div>
             </div>

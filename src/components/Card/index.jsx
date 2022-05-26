@@ -3,7 +3,7 @@ import { AiTwotoneDelete } from "react-icons/ai";
 
 
 
-function Card({transaction, setListTransactions, index, listTransactions}) {
+function Card({transaction, setListTransactions, index, listTransactions, dataGraph, setDataGraph}) {
     
     function deleteTransaction() {
         const newList = listTransactions.filter(( item , i) => i !== index )
@@ -17,6 +17,7 @@ function Card({transaction, setListTransactions, index, listTransactions}) {
                 <h5>R$ {Math.abs(transaction.value)}</h5> 
                 <button onClick={() => deleteTransaction()}>< AiTwotoneDelete/></button>
                 <span>{transaction.type}</span>
+                <span className='category'>{transaction.category}</span>
             </div>
         </li>
     )

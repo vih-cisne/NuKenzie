@@ -2,7 +2,7 @@ import { useState } from "react"
 import Card from "../Card"
 import './styles.css'
 
-function List({listTransactions, setListTransactions}) {
+function List({listTransactions, setListTransactions, dataGraph, setDataGraph}) {
 
     const [listFiltered, setListFiltered] = useState(undefined)
 
@@ -46,7 +46,7 @@ function List({listTransactions, setListTransactions}) {
             : null }
             <ul className="list">
                 {listActual.map((transaction, index) => 
-                <Card transaction={transaction} key={index} index={index} listTransactions={listTransactions} setListTransactions={setListTransactions}/>)}
+                <Card dataGraph={dataGraph} setDataGraph={setDataGraph} transaction={transaction} key={index} index={index} listTransactions={listTransactions} setListTransactions={setListTransactions}/>)}
             </ul>
             
         </div>

@@ -4,7 +4,7 @@
     border: 1px solid var(--bg-button);
     display: flex;
     flex-direction: column;
-    width: 300px;
+    max-width: 300px;
     box-sizing: border-box;
     border-radius: 5px;
     padding: 30px 20px;
@@ -34,7 +34,7 @@
     position: relative;
 }
 
-.input-box span {
+.input-box > span {
     font-size: small;
     color: var(--text-color);
     position: absolute;
@@ -50,12 +50,13 @@
 
 .flex-below {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 10px;
 }
 
 .flex-below > div {
-    width: 50%;
+    width: 48%;
 }
 
 
@@ -65,5 +66,11 @@
     border-radius: 5px;
     color: white;
     padding: 10px 0;
+}
+
+@media (max-width:320px) {
+    .form-transaction {
+        max-width: 90vw;
+    }
 }
 
