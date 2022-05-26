@@ -3,12 +3,20 @@ import { AiTwotoneDelete } from "react-icons/ai";
 
 
 
-function Card({transaction, setListTransactions, index, listTransactions, dataGraph, setDataGraph}) {
+function Card({transaction, setListTransactions, index, listTransactions, updateGraph}) {
     
     function deleteTransaction() {
         const newList = listTransactions.filter(( item , i) => i !== index )
         setListTransactions(newList)
+        localStorage.setItem('listT-nuKenzie',JSON.stringify(newList))
+        updateGraph(newList)
+        
+
+        
+
     }
+
+    
     
     return (
         <li className={`transation-item ${transaction.type}`}>

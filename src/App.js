@@ -5,17 +5,86 @@ import Form from './components/Form';
 import List from './components/List';
 import TotalMoney from './components/TotalMoney';
 
+if(!localStorage.getItem('listT-nuKenzie')) {
+  localStorage.setItem('listT-nuKenzie', JSON.stringify([]))
+}
+
+
+
+
+
+
 function App() {
 
-  const [listTransactions, setListTransactions] = useState([{ description: "Salário recebido", type: "Entrada", value: 2500, category: 'Salário' },
-  { description: "Conta de luz", type: "Despesa", value: -150, category: 'Casa' }])
+  const [listTransactions, setListTransactions] = useState(JSON.parse(localStorage.getItem('listT-nuKenzie')))
 
   const [start, setStart] = useState(true)
 
-  const [dataGraph, setDataGraph] = useState({})
 
+  if(!localStorage.getItem('dataGraph-nuKenzie')) {
+    localStorage.setItem('dataGraph-nuKenzie', JSON.stringify({labels:['Livre'], datasets: [{
+      data: [0],
+      backgroundColor: [
+      'green',
+      'red',
+      'blue',
+      'yellow',
+      'purple',
+      'pink',
+      'grey'
+      ]}]}))
+    
+  }
+ 
+  const [dataGraph, setDataGraph] = useState(JSON.parse(localStorage.getItem('dataGraph-nuKenzie')))
+
+    function updateGraph(listTransactions) {
+
+      const newDataGraph = dataGraph
+
+      newDataGraph.datasets[0].data = [0]
+      newDataGraph.labels = ['Livre']
+      
+
+  
+        listTransactions.forEach((item) => {
+  
+          if(item.type==='Despesa') {
+            const findIndex = newDataGraph.labels.findIndex((el) => el===item.category )
+            if(findIndex>=0) {
+  
+              newDataGraph.datasets[0].data[findIndex] = newDataGraph.datasets[0].data[findIndex] + Number(item.value)
+    
+            } else {
+              newDataGraph.labels.push(item.category)
+              newDataGraph.datasets[0].data.push(Number(item.value))
+    
+            }
+          } 
+  
+        })
+
+        const livre = listTransactions.reduce((acc,actual) => 
+        actual.type==='Despesa' ?
+        acc + -Math.abs(Number(actual.value)) : acc + Number(actual.value)
+      , 0)
+
+
+        newDataGraph.datasets[0].data[0] =  livre >= 0 ?  livre : 0
+
+      localStorage.setItem('dataGraph-nuKenzie', JSON.stringify(newDataGraph))
+
+      console.log(newDataGraph)
+  
+      setDataGraph(newDataGraph)
+  
+  
+    }
+
+  
 
   if(start) {
+
 
     return (
       <div id='home'>
@@ -33,11 +102,12 @@ function App() {
     )
 
   } else {
+    
     return (
       <div >
         <header>
           <div className='logo-header'>
-            <img src='image/Nu Kenzie.svg'/>
+            <img src='image/Nu Kenzie.svg' alt='logo'/>
 
           </div>
           <button onClick={() => setStart(true)} className='button-start'>Inicio</button>
@@ -45,12 +115,12 @@ function App() {
         </header>
         <div id='body'>
           <aside>
-            <Form dataGraph={dataGraph} setDataGraph={setDataGraph} listTransactions={listTransactions} setListTransactions={setListTransactions}/>
-            <TotalMoney dataGraph={dataGraph} listTransactions={listTransactions} />
+            <Form  updateGraph={updateGraph} listTransactions={listTransactions} setListTransactions={setListTransactions}/>
+            <TotalMoney dataGraph={dataGraph} updateGraph={updateGraph} listTransactions={listTransactions} />
           </aside>
 
           <main>
-            <List dataGraph={dataGraph} setDataGraph={setDataGraph} listTransactions={listTransactions} setListTransactions={setListTransactions}/>
+            <List updateGraph={updateGraph} listTransactions={listTransactions} setListTransactions={setListTransactions}/>
 
           </main>
 

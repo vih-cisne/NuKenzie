@@ -2,11 +2,14 @@ import { useState } from 'react'
 import './styles.css'
 
 
-function Form({listTransactions,setListTransactions, dataGraph, setDataGraph}) {
+function Form({listTransactions,setListTransactions, updateGraph}) {
 
     function addTransaction() {
       
+        localStorage.setItem('listT-nuKenzie',JSON.stringify([...listTransactions, {description,value,type,category}]))
+        updateGraph([...listTransactions, {description,value,type,category}])
         setListTransactions([...listTransactions, {description,value,type,category}])
+        
     }
 
     const [description, setDescription] = useState('')
@@ -36,17 +39,18 @@ function Form({listTransactions,setListTransactions, dataGraph, setDataGraph}) {
                 </div>          
                 <div className="select-box">
                     <label>Tipo de valor</label>
-                    <select onChange={(e) => setType(e.target.value)}>
+                    <select onClick={(e) => setType(e.target.value)}>
+                        
                         <option>Entrada</option>
                         <option>Despesa</option>
                     </select>
                 </div>
                 <div className="select-box">
                     <label>Categoria</label>
-                    <select onChange={(e) => addCategory(e.target.value)}>
+                    <select onClick={(e) => addCategory(e.target.value)}>
                         
                         {type === 'Despesa' ? 
-                            <>
+                            <>  
                                 <option>Comida</option>
                                 <option>Saúde</option>
                                 <option>Roupa</option>
@@ -56,6 +60,7 @@ function Form({listTransactions,setListTransactions, dataGraph, setDataGraph}) {
                             </>
                             :
                             <>
+
                                 <option>Salário</option>
                                 <option>Retorno</option>
 
