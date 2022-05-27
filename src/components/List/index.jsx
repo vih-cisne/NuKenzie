@@ -2,7 +2,7 @@ import { useState } from "react"
 import Card from "../Card"
 import './styles.css'
 
-function List({listTransactions, setListTransactions, updateGraph}) {
+function List({listTransactions, setListTransactions}) {
 
     const [listFiltered, setListFiltered] = useState(undefined)
 
@@ -10,7 +10,7 @@ function List({listTransactions, setListTransactions, updateGraph}) {
         if(e.target.id ==='Todos') {
             setListFiltered(undefined)
         } else {
-            setListFiltered([...listTransactions].filter((item) => item.type === e.target.value))
+            setListFiltered([...listTransactions].map((item) => item.type === e.target.value ? item : undefined))
         }
         const selected = document.querySelector('.selected')
         selected.className = ''
@@ -45,8 +45,8 @@ function List({listTransactions, setListTransactions, updateGraph}) {
             </div> 
             : null }
             <ul className="list">
-                {listActual.map((transaction, index) => 
-                <Card  updateGraph={updateGraph} transaction={transaction} key={index} index={index} listTransactions={listTransactions} setListTransactions={setListTransactions}/>)}
+                {listActual.map((transaction, index) => transaction ?
+                <Card  listFiltered={listFiltered} setListFiltered={setListFiltered} transaction={transaction} key={index} index={index} listTransactions={listTransactions} setListTransactions={setListTransactions}/> : null)}
             </ul>
             
         </div>

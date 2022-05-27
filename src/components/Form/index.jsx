@@ -2,13 +2,14 @@ import { useState } from 'react'
 import './styles.css'
 
 
-function Form({listTransactions,setListTransactions, updateGraph}) {
+function Form({listTransactions,setListTransactions}) {
 
     function addTransaction() {
       
-        localStorage.setItem('listT-nuKenzie',JSON.stringify([...listTransactions, {description,value,type,category}]))
-        updateGraph([...listTransactions, {description,value,type,category}])
+        //localStorage.setItem('listT-nuKenzie',JSON.stringify([...listTransactions, {description,value,type,category}]))
         setListTransactions([...listTransactions, {description,value,type,category}])
+        
+
         
     }
 
@@ -16,13 +17,6 @@ function Form({listTransactions,setListTransactions, updateGraph}) {
     const [type, setType] = useState('')
     const [value, setValue] = useState('')
     const [category, setCategory] = useState('')
-    
-
-
-    function addCategory(value) {
-        setCategory(value)
-        
-    }
 
     return (
         <form className="form-transaction">
@@ -39,7 +33,7 @@ function Form({listTransactions,setListTransactions, updateGraph}) {
                 </div>          
                 <div className="select-box">
                     <label>Tipo de valor</label>
-                    <select onClick={(e) => setType(e.target.value)}>
+                    <select onClick={(e) => setType(e.target.value)} onChange={(e) => setType(e.target.value)}>
                         
                         <option>Entrada</option>
                         <option>Despesa</option>
@@ -47,7 +41,7 @@ function Form({listTransactions,setListTransactions, updateGraph}) {
                 </div>
                 <div className="select-box">
                     <label>Categoria</label>
-                    <select onClick={(e) => addCategory(e.target.value)}>
+                    <select onClick={(e) => setCategory(e.target.value)} onChange={(e) => setCategory(e.target.value)}>
                         
                         {type === 'Despesa' ? 
                             <>  

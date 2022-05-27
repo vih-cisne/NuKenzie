@@ -60,7 +60,7 @@ header {
 
 #body {
   display: flex;
-  padding: 0 9vw;
+  padding: 0 8vw;
   padding-top: 20px;
   justify-content: space-between;
   min-height: 100vh;

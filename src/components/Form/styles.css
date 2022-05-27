@@ -30,7 +30,6 @@
 .select-box, .input-box {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     position: relative;
 }
 
@@ -73,4 +72,6 @@
         max-width: 90vw;
     }
 }
+
+
 

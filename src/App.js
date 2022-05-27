@@ -1,53 +1,55 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Form from './components/Form';
 import List from './components/List';
 import TotalMoney from './components/TotalMoney';
 
-if(!localStorage.getItem('listT-nuKenzie')) {
+
+/*if(!localStorage.getItem('listT-nuKenzie')) {
   localStorage.setItem('listT-nuKenzie', JSON.stringify([]))
-}
-
-
-
-
+}*/
 
 
 function App() {
-
-  const [listTransactions, setListTransactions] = useState(JSON.parse(localStorage.getItem('listT-nuKenzie')))
-
+  
+  const [listTransactions, setListTransactions] = useState(/*JSON.parse(localStorage.getItem('listT-nuKenzie'))*/[])
+  
   const [start, setStart] = useState(true)
 
-
-  if(!localStorage.getItem('dataGraph-nuKenzie')) {
-    localStorage.setItem('dataGraph-nuKenzie', JSON.stringify({labels:['Livre'], datasets: [{
-      data: [0],
-      backgroundColor: [
+  const data = {labels:['Livre'], datasets: [{
+    data: [0],
+    backgroundColor: [
       'green',
-      'red',
-      'blue',
-      'yellow',
-      'purple',
-      'pink',
-      'grey'
-      ]}]}))
-    
-  }
- 
-  const [dataGraph, setDataGraph] = useState(JSON.parse(localStorage.getItem('dataGraph-nuKenzie')))
+      'rgb(255, 192, 241)',
+      'rgb(247, 126, 220)',
+      'rgb(247, 93, 213)',
+      'rgb(245, 69, 207)',
+      'rgb(221, 39, 182);',
+      'rgb(150, 3, 118);'
+      ]}]}
+  
 
-    function updateGraph(listTransactions) {
+const [dataGraph, setDataGraph] = useState(data)
 
-      const newDataGraph = dataGraph
+useEffect(() => {
+  setDataGraph(updateGraph())
+  
+  
+}, [listTransactions])
+      
 
-      newDataGraph.datasets[0].data = [0]
-      newDataGraph.labels = ['Livre']
+function updateGraph() {
+    //console.log(dataGraph)
+
+    const newDataGraph = dataGraph
+
+    //newDataGraph.datasets[0].data = [0]
+    //newDataGraph.labels = ['Livre']
       
 
   
-        listTransactions.forEach((item) => {
+    listTransactions.forEach((item) => {
   
           if(item.type==='Despesa') {
             const findIndex = newDataGraph.labels.findIndex((el) => el===item.category )
@@ -70,18 +72,17 @@ function App() {
       , 0)
 
 
-        newDataGraph.datasets[0].data[0] =  livre >= 0 ?  livre : 0
+        newDataGraph.datasets[0].data[0] =  livre > 0 ?  livre : 1
 
-      localStorage.setItem('dataGraph-nuKenzie', JSON.stringify(newDataGraph))
+      //localStorage.setItem('dataGraph-nuKenzie', JSON.stringify(newDataGraph))
 
-      console.log(newDataGraph)
+      //console.log(newDataGraph)
+      
   
-      setDataGraph(newDataGraph)
+      return newDataGraph
   
   
     }
-
-  
 
   if(start) {
 
@@ -115,12 +116,12 @@ function App() {
         </header>
         <div id='body'>
           <aside>
-            <Form  updateGraph={updateGraph} listTransactions={listTransactions} setListTransactions={setListTransactions}/>
-            <TotalMoney dataGraph={dataGraph} updateGraph={updateGraph} listTransactions={listTransactions} />
+            <Form   listTransactions={listTransactions} setListTransactions={setListTransactions}/>
+            <TotalMoney dataGraph={dataGraph} listTransactions={listTransactions} />
           </aside>
 
           <main>
-            <List updateGraph={updateGraph} listTransactions={listTransactions} setListTransactions={setListTransactions}/>
+            <List listTransactions={listTransactions} setListTransactions={setListTransactions}/>
 
           </main>
 
