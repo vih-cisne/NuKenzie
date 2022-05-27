@@ -17,7 +17,7 @@ function TotalMoney({listTransactions, total, dataGraph}) {
             </div>
             <span className='total-span'>O valor é referente ao saldo</span>
 
-        <div style={{width:'200px', height:'200px'}}>
+        <div style={{width:'280px', height:'300px'}}>
         <Doughnut
             
             data={dataGraph}

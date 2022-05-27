@@ -1,62 +1,69 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './styles.css'
 import { useForm } from "react-hook-form";
+import SelectCategory from '../SelectCategory';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+
+
 
 function Form({listTransactions,setListTransactions}) {
+
+    const schema = yup.object({
+        description: yup.string().required('A descrição não pode estar vazia'),
+        value: yup.string().required('Defina um valor'),
+    }).required()
     
     const [type, setType] = useState('Entrada')
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+
     const onSubmit = data => setListTransactions([...listTransactions, data])
+
+    const [categories, setCategories] = useState(SelectCategory(type))
+
+    useEffect(() => {
+        setCategories(SelectCategory(type))
+        
+    }, [type])
     
 
     return (
         <form className="form-transaction" onSubmit={handleSubmit(onSubmit)}>
             <div className="input-box">
                 <label>Descrição</label>
-                <input {...register("description", {required: true })} type="text" placeholder="Digite aqui sua descrição" ></input>
-                <span className='input-ex'>Ex: Compra de roupas</span>
+                <input {...register("description")} type="text" placeholder="Digite aqui sua descrição" ></input>
+                {/*<span className='input-ex'>Ex: Compra de roupas</span>*/}
+                <p className='Mesage-error'>{errors.description?.message}</p>
             </div>  
             <div className="flex-below">
                 <div className="input-box">
                     <label>Valor</label>
-                    <input {...register("value", {required: true })} type="text" placeholder="1" ></input>
+                    <input {...register("value")} type="text" placeholder="1" ></input>
                     <span className='input-value'>R$</span>
+                    <p className='Mesage-error'>{errors.value?.message}</p>
                 </div>          
                 <div className="select-box">
                     <label>Tipo de valor</label>
                     <select {...register("type")} onChange={(e) => setType(e.target.value)} onClick={(e) => setType(e.target.value)}>
                         
-                        <option>Entrada</option>
-                        <option>Despesa</option>
+                        <option value='Entrada'>Entrada</option>
+                        <option value='Despesa'>Despesa</option>
                     </select>
                 </div>
                 <div className="select-box">
                     <label>Categoria</label>
-                    <select {...register("category") } >
-                        
-                        {type === 'Despesa' ? 
-                            <>  
-                                <option >Comida</option>
-                                <option>Saúde</option>
-                                <option>Roupa</option>
-                                <option>Pets</option>
-                                <option>Beleza</option>
-                                <option>Casa</option>
-                            </>
-                            :
-                            <>
-
-                                <option>Salário</option>
-                                <option>Retorno</option>
-
-                            </>
-                    
-                        }
-                        
+                    <select {...register("category")} >
+                    {
+                        categories.map((item, index) => <option key={index} value={item}>{item}</option>)
+                    }
                     </select>
+                    
+                    
                 </div>
             </div>
-            {errors.exampleRequired && <span>This field is required</span>}
             <button type='submit' className="form-button">Inserir valor</button>
 
         </form>

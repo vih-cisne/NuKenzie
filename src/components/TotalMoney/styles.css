@@ -5,9 +5,10 @@
     border: 1px solid var(--bg-button);
     border-radius: 5px;
     margin-top: 1rem;
-    padding: 0px 10px 30px 10px;
+    padding: 0px 10px 20px 10px;
     align-items: center;
     flex-direction: column;
+    height: fit-content;
 }
 
 .total-money p {

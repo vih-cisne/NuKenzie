@@ -44,13 +44,13 @@ function App() {
         const newDataGraph = {
             datasets: [{
             backgroundColor: [
-          'green',
-          'rgb(255, 192, 241)',
+          'rgb(67, 197, 67)',
+          '#fd0661',
           'rgb(247, 126, 220)',
-          'rgb(247, 93, 213)',
-          'rgb(245, 69, 207)',
-          'rgb(221, 39, 182);',
-          'rgb(150, 3, 118);'
+          '#fabfd5',
+          'rgb(221, 39, 182)',
+          '#FD377E',
+          'grey'
           ]}]
             }
 
@@ -74,7 +74,11 @@ function App() {
   
         })
 
-        newDataGraph.datasets[0].data[0] =  total > 0 ?  total : null
+        newDataGraph.datasets[0].data[0] =  total > 0 ?  total : listTransactions.length === 0  && 1 
+
+        newDataGraph.datasets[0].backgroundColor[0] = listTransactions.length === 0 ? 'rgb(119, 172, 172)' : 'rgb(67, 197, 67)'
+
+        
 
         return newDataGraph
     }
