@@ -1,25 +1,33 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Card from "../Card"
 import './styles.css'
 
 function List({listTransactions, setListTransactions}) {
 
-    const [listFiltered, setListFiltered] = useState(undefined)
+    const [listFiltered, setListFiltered] = useState([...listTransactions])
+    const [filter, setFilter] = useState('Todos')
 
-    function filterList(e) {
-        if(e.target.id ==='Todos') {
-            setListFiltered(undefined)
+    useEffect(() => {
+        filterList()
+    }, [listTransactions])
+
+
+    useEffect(() => {
+        filterList()
+    }, [filter])
+
+
+
+    function filterList() {
+        if(filter ==='Todos') {
+            setListFiltered([...listTransactions])
         } else {
-            setListFiltered([...listTransactions].map((item) => item.type === e.target.value ? item : undefined))
+            setListFiltered([...listTransactions].filter((item) => item.type === filter))
         }
-        const selected = document.querySelector('.selected')
-        selected.className = ''
-
-        e.target.className = 'selected'
 
     }
 
-    const listActual = listFiltered ? listFiltered : listTransactions
+    
 
 
     return (
@@ -29,13 +37,13 @@ function List({listTransactions, setListTransactions}) {
 
                 <div className="nav-type">
                     <div className="radio-box">
-                        <button className="selected" onClick={(e) => filterList(e)} type="radio" value="Todos" name="type" id='Todos'>Todos</button>
+                        <button className={filter==='Todos' ? 'selected' : ''} onClick={() => setFilter("Todos")} type="radio" value="Todos" name="type" id='Todos'>Todos</button>
                     </div>
                     <div className="radio-box">
-                        <button onClick={(e) => filterList(e)} type="radio" value="Entrada" name="type" id="Entradas">Entradas</button>
+                        <button className={filter==='Entrada' ? 'selected' : ''} onClick={() => setFilter("Entrada")} type="radio" value="Entrada" name="type" id="Entradas">Entradas</button>
                     </div>
                     <div className="radio-box">
-                        <button onClick={(e) => filterList(e)} type="radio" value="Despesa" name="type" id="Despesas">Despesas</button>
+                        <button className={filter==='Despesa' ? 'selected' : ''} onClick={() => setFilter("Despesa")} type="radio" value="Despesa" name="type" id="Despesas">Despesas</button>
                     </div>
                 </div>
             </div>
@@ -45,8 +53,8 @@ function List({listTransactions, setListTransactions}) {
             </div> 
             : null }
             <ul className="list">
-                {listActual.map((transaction, index) => transaction ?
-                <Card  listFiltered={listFiltered} setListFiltered={setListFiltered} transaction={transaction} key={index} index={index} listTransactions={listTransactions} setListTransactions={setListTransactions}/> : null)}
+                {listFiltered.map((transaction, index) =>
+                <Card  listFiltered={listFiltered} setListFiltered={setListFiltered} transaction={transaction} key={index} index={index} listTransactions={listTransactions} setListTransactions={setListTransactions}/>)}
             </ul>
             
         </div>

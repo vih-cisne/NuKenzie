@@ -63,3 +63,19 @@
     padding: 4px;
     border-radius: 5px;
 }
+
+@media (max-width:410px) {
+    .transation-item > div > button {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+    }
+    .transation-item > div > h5 {
+        align-self: flex-start;
+        
+    }
+
+    .category {
+        top: 30px;
+    }
+}

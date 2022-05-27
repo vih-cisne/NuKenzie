@@ -72,7 +72,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
   max-width: 100vw;
   padding: 5vw;
 }
@@ -111,7 +111,7 @@ button:hover {
 
 @media (max-width:635px) {
   #body {
-    flex-direction: column-reverse;
+    flex-direction: column;
     padding: 0 8vw;
   }
 
@@ -121,6 +121,10 @@ button:hover {
   .header-transaction {
     flex-direction: column-reverse;
 
+  }
+
+  .form-transaction {
+    margin-top: 4rem;
   }
 
   header {
@@ -137,7 +141,7 @@ button:hover {
   }
 
   .list-transaction {
-    margin-top: 12vh;
+    margin-top: 5vh;
   }
   
   .list-transaction ul {
@@ -168,14 +172,20 @@ button:hover {
     position: relative;
     flex-direction: column-reverse;
     justify-content: flex-end;
-    padding-top: 5px;
+    padding-top: 0;
   }
 
   #home > aside:nth-child(1) {
     
    position: absolute;
-   bottom: 10vh;
+   bottom: 13vh;
   }
+
+  #home > aside:nth-child(2) {
+    
+    width: 70%;
+    margin-left: 30vw;
+   }
 
 
   #home > aside {

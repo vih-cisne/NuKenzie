@@ -6,28 +6,19 @@ import { AiTwotoneDelete } from "react-icons/ai";
 function Card({transaction, setListTransactions, index, listTransactions, listFiltered, setListFiltered}) {
     
     function deleteTransaction() {
-        const newList = listTransactions.filter(( item , i) => i !== index )
-        setListTransactions(newList)
 
-        if(listFiltered) {
-            const newListF = listFiltered.filter(( item , i) => i !== index )
-            setListFiltered(newListF)
-        }
-        //localStorage.setItem('listT-nuKenzie',JSON.stringify(newList))
-        
-        
-
-        
+        const newListF = listTransactions.filter(( item , i) => i !== index )
+        setListTransactions(newListF)   
 
     }
-
+    
     
     
     return (
         <li className={`transation-item ${transaction.type}`}>
             <div>
                 <h3>{transaction.description}</h3> 
-                <h5>R$ {Math.abs(transaction.value)}</h5> 
+                <h5>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Math.abs(transaction.value))}</h5> 
                 <button onClick={() => deleteTransaction()}>< AiTwotoneDelete/></button>
                 <span>{transaction.type}</span>
                 <span className='category'>{transaction.category}</span>
